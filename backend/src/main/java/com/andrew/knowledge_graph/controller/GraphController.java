@@ -73,8 +73,18 @@ public class GraphController {
         try {
             Long nodeId = Long.parseLong(id);
             // Delete all relationships where this node is source or target
-            relationshipRepository.findByFromNodeId(nodeId).forEach(rel -> relationshipRepository.deleteById(rel.getId()));
-            relationshipRepository.findByToNodeId(nodeId).forEach(rel -> relationshipRepository.deleteById(rel.getId()));
+            relationshipRepository.findByFromNodeId(nodeId).forEach(rel -> {
+                Long relId = rel.getId();
+                if (relId != null) {
+                    relationshipRepository.deleteById(relId);
+                }
+            });
+            relationshipRepository.findByToNodeId(nodeId).forEach(rel -> {
+                Long relId = rel.getId();
+                if (relId != null) {
+                    relationshipRepository.deleteById(relId);
+                }
+            });
             // Delete the node itself
             nodeRepository.deleteById(nodeId);
             return id;
@@ -99,12 +109,14 @@ public class GraphController {
 
     @SchemaMapping(typeName = "Relationship", field = "from")
     public Node getFromNode(Relationship relationship) {
-        return nodeRepository.findById(relationship.getFromNodeId()).orElse(null);
+        Long fromNodeId = relationship.getFromNodeId();
+        return fromNodeId != null ? nodeRepository.findById(fromNodeId).orElse(null) : null;
     }
 
     @SchemaMapping(typeName = "Relationship", field = "to")
     public Node getToNode(Relationship relationship) {
-        return nodeRepository.findById(relationship.getToNodeId()).orElse(null);
+        Long toNodeId = relationship.getToNodeId();
+        return toNodeId != null ? nodeRepository.findById(toNodeId).orElse(null) : null;
     }
 
     @SchemaMapping(typeName = "Node", field = "connections")
@@ -118,16 +130,22 @@ public class GraphController {
         // Build Connection objects for outgoing relationships
         List<Connection> connections = new ArrayList<>();
         for (Relationship rel : outgoing) {
-            Node target = nodeRepository.findById(rel.getToNodeId()).orElse(null);
-            if (target != null) {
-                connections.add(new Connection(rel, target));
+            Long toNodeId = rel.getToNodeId();
+            if (toNodeId != null) {
+                Node target = nodeRepository.findById(toNodeId).orElse(null);
+                if (target != null) {
+                    connections.add(new Connection(rel, target));
+                }
             }
         }
         // Build Connection objects for incoming relationships
         for (Relationship rel : incoming) {
-            Node source = nodeRepository.findById(rel.getFromNodeId()).orElse(null);
-            if (source != null) {
-                connections.add(new Connection(rel, source));
+            Long fromNodeId = rel.getFromNodeId();
+            if (fromNodeId != null) {
+                Node source = nodeRepository.findById(fromNodeId).orElse(null);
+                if (source != null) {
+                    connections.add(new Connection(rel, source));
+                }
             }
         }
         return connections;
