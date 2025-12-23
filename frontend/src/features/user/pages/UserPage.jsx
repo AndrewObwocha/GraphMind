@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import NavbarComponent from "../components/NavbarComponent";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../helpers/constants";
-import authStyles from "../styles/component_styles/AuthFormComponent.module.css";
-import styles from "../styles/page_styles/TablePage.module.css";
+import { Navbar } from "../../../shared/components/NavbarComponent";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../shared/helpers/constants";
+import authStyles from "../../../shared/components/AuthFormComponent.module.css";
+import styles from "../styles/UserPage.module.css";
 
 function parseJwt(token) {
   if (!token) return null;
@@ -26,7 +26,7 @@ function UserPage() {
 
   return (
     <div className={styles.tablePage}>
-      <NavbarComponent />
+      <Navbar />
       <main className={styles.content}>
         <div
           style={{ display: "flex", justifyContent: "center", width: "100%" }}

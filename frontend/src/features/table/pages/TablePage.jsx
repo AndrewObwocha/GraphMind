@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import NavbarComponent from "../components/NavbarComponent";
-import api from "../helpers/api";
-import styles from "../styles/page_styles/TablePage.module.css";
+import { Navbar } from "../../../shared/components/NavbarComponent";
+import { apiClient } from "../../../shared/helpers/api/client";
+import styles from "../styles/TablePage.module.css";
 
 function TablePage() {
   const [rows, setRows] = useState([]);
@@ -21,14 +21,13 @@ function TablePage() {
           }
         }
       `;
-      const res = await api.post("/graphql", { query });
+      const res = await apiClient.post("/graphql", { query });
       if (res.data.errors) {
         console.error("Failed to fetch nodes:", res.data.errors);
         return;
       }
       const nodesRaw = res.data.data.searchNodes || [];
 
-      // Map to a shape useful for table rows
       const mapped = nodesRaw.map((n) => {
         const linked = (n.connections || []).map((c) => c.node).filter(Boolean);
         const linkedUnique = Array.from(
@@ -54,7 +53,7 @@ function TablePage() {
 
   return (
     <div className={styles.tablePage}>
-      <NavbarComponent />
+      <Navbar />
       <main className={styles.content}>
         <h2 className={styles.title}>Nodes</h2>
         <div className={styles.tableWrap}>

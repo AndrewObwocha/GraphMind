@@ -1,12 +1,13 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import GraphPage from "./pages/GraphPage";
-import TablePage from "./pages/TablePage";
-import NotFoundPage from "./pages/NotFoundPage";
-import UserPage from "./pages/UserPage";
+import { useAuthContext } from "./shared/context/AuthContext";
+import ProtectedRoute from "./shared/components/ProtectedRoute";
+import HomePage from "./shared/pages/HomePage";
+import LoginPage from "./features/auth/pages/LoginPage";
+import RegisterPage from "./features/auth/pages/RegisterPage";
+import GraphPage from "./features/graph/pages/GraphPage";
+import TablePage from "./features/table/pages/TablePage";
+import NotFoundPage from "./shared/pages/NotFoundPage";
+import UserPage from "./features/user/pages/UserPage";
 
 function Logout() {
   localStorage.clear();
@@ -19,6 +20,10 @@ function RegisterAndLogout() {
 }
 
 function App() {
+  const { isAuthorized, loading } = useAuthContext();
+
+  if (loading) return <div>Loading...</div>;
+
   return (
     <BrowserRouter>
       <Routes>

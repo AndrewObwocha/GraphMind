@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import styles from "../styles/component_styles/NavbarComponent.module.css";
+import styles from "./NavbarComponent.module.css";
 
 const navLinks = [
   { label: "Graph View", to: "/graphview" },
@@ -7,7 +7,7 @@ const navLinks = [
   { label: "User Profile", to: "/userview" },
 ];
 
-const NavbarComponent = () => {
+export const Navbar = () => {
   return (
     <header className={styles.navbarHeader}>
       <nav className={styles.navbar}>
@@ -33,4 +33,4 @@ const NavbarComponent = () => {
   );
 };
 
-export default NavbarComponent;
+export default Navbar;

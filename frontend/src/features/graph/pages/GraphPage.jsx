@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import NavbarComponent from "../components/NavbarComponent";
+import { Navbar } from "../../../shared/components/NavbarComponent";
 import GraphComponent from "../components/GraphComponent";
-import api from "../helpers/api";
-import styles from "../styles/page_styles/GraphPage.module.css";
-import authStyles from "../styles/component_styles/AuthFormComponent.module.css";
+import { apiClient } from "../../../shared/helpers/api/client";
+import styles from "../styles/GraphPage.module.css";
+import authStyles from "../../../shared/components/AuthFormComponent.module.css";
 
 function GraphPage() {
   const [showAddNodeForm, setShowAddNodeForm] = useState(false);
@@ -38,7 +38,7 @@ function GraphPage() {
           }
         }
       `;
-      const res = await api.post("/graphql", { query });
+      const res = await apiClient.post("/graphql", { query });
       if (res.data.errors) {
         console.error("Failed to fetch graph data:", res.data.errors);
         return;
@@ -88,7 +88,7 @@ function GraphPage() {
         }
       `;
       const variables = { title: newNodeTitle, description: newNodeNotes };
-      const response = await api.post("/graphql", {
+      const response = await apiClient.post("/graphql", {
         query: mutationString,
         variables,
       });
@@ -97,13 +97,12 @@ function GraphPage() {
       if (confirmationData.errors) {
         console.error("GraphQL Errors:", confirmationData.errors);
         alert("Error creating node. See console for details.");
-        return; // Exit if there's an error
+        return;
       }
 
       const newNode = confirmationData.data.addNode;
       let newLinks = [];
 
-      // Link to existing nodes if any are selected
       if (selectedLinkIds.length > 0) {
         const linkMutation = `
           mutation LinkNodes($fromId: ID!, $toId: ID!, $type: RelationshipType!) {
@@ -114,7 +113,7 @@ function GraphPage() {
         `;
         for (const toId of selectedLinkIds) {
           try {
-            await api.post("/graphql", {
+            await apiClient.post("/graphql", {
               query: linkMutation,
               variables: { fromId: newNode.id, toId: toId, type: "RELATED_TO" },
             });
@@ -122,7 +121,6 @@ function GraphPage() {
             console.error(`Failed to link to node ${toId}:`, linkError);
           }
         }
-        // Prepare new links for local state update
         newLinks = selectedLinkIds.map((toId) => ({
           source: newNode.id,
           target: toId,
@@ -139,7 +137,6 @@ function GraphPage() {
       alert(`New node created with ID: ${newNode.id}`);
       console.log("Success:", confirmationData.data);
 
-      // Reset form state
       setShowAddNodeForm(false);
       setNewNodeTitle("");
       setNewNodeNotes("");
@@ -174,7 +171,6 @@ function GraphPage() {
     ? graphData.nodes.find((n) => n.id === selectedNodeId)
     : null;
 
-  // Compute only direct neighbors (no transitive expansion) and dedupe
   const selectedNodeLinkedNodes = (() => {
     if (!selectedNodeId) return [];
     const neighborIdSet = new Set();
@@ -205,7 +201,7 @@ function GraphPage() {
     if (!ok) return;
     try {
       const mutation = `mutation DeleteNode($id: ID!) { deleteNode(id: $id) }`;
-      const res = await api.post("/graphql", {
+      const res = await apiClient.post("/graphql", {
         query: mutation,
         variables: { id },
       });
@@ -233,7 +229,7 @@ function GraphPage() {
 
   return (
     <div className={styles.graphPage}>
-      <NavbarComponent />
+      <Navbar />
       <GraphComponent data={graphData} onNodeClick={handleNodeClick} />
       <button
         className={styles.createNode}

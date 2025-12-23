@@ -1,0 +1,81 @@
+.authFormContainer {
+  background-color: #efefef;
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid black;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease-in-out;
+}
+
+.authFormContainer:hover {
+  transform: scale(1.02);
+}
+
+.formTitle {
+  text-align: center;
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #212529;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #495057;
+}
+
+.formInput {
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: 1px solid #adb5bd;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.formButton {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.formButton:hover {
+  opacity: 0.9;
+}
+
+.formButton.cancelButton + .formButton {
+  background-color: #2781ad;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #fff;
+  color: #495057;
+  border: 1px solid #adb5bd;
+}

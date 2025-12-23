@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import styles from "../styles/component_styles/GraphComponent.module.css";
+import styles from "../styles/GraphComponent.module.css";
 
 const generateBlobPath = (radius = 50, numAnchors = 16, variance = 0.25) => {
   const points = [];
