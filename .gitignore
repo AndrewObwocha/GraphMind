@@ -50,3 +50,5 @@ manage.sql
 ## Log files ##
 *.log
 *.log.*
+
+.env
