@@ -1,92 +1,37 @@
-# GraphMind Web Application
+# GraphMind: Personal Knowledge Graph Tool
 
-## Welcome!
+## Visualize the connections in your knowledge.
 
-GraphMind is a full-stack web application for visually organizing and exploring information as a network of interconnected nodes and relationships. Designed to help users externalize and analyze complex knowledge, it features a modern React frontend, a robust Spring Boot backend, and a flexible GraphQL API powered by a local SQLite database.
+This project is a full-stack web application designed to visually explore relationships between several ideas simultaneously. The graph visual environment is a D3.js interactive force-directed simulation. Data is modelled using a relational adjacency list connected through foreign-keys in PostgreSQL. The API protocol deployed is GraphQL primarily as a personal learning exercise. The backend framework of choice is Springboot and implements JWT security.
 
-## GraphMind's Vision
+- Create, read, update, and delete nodes and relationships with ease.
+- Explore and manipulate nodes and relationships in a dynamic, visually engaging graph.
+- Examine graph nodes in a centralized table view for relational management.
+- Secure login, registration, and JWT-based session management.
+- Flexible queries and mutations for frontend and external integrations.
 
-Information is most powerful when connected. GraphMind aims to make learning and research a compounding activity by mapping ideas, facts, and concepts as a graph—helping you see relationships, discover patterns, and grow your knowledge network over time.
+## How to install this example project on Docker
 
-## Features
+The fastest way to get up and running is by using Docker. No local dependencies required.
 
-- **Interactive Graph Exploration** — Explore and manipulate nodes and relationships in a dynamic, visually engaging graph.
+```bash
+git clone https://github.com/{yourUsername}/GraphMind.git
+cd GraphMind
+docker compose up --build
 
-- **Search & Discovery** — Find nodes by title or keyword for quick navigation.
+```
 
-- **CRUD operations** — Create, read, update, and delete nodes and relationships with ease.
+## How to tweak this project for your own use cases
 
-- **User Authentication** — Secure login, registration, and JWT-based session management.
+Since this project was predominantly a learning exercise, feel free to clone and rename this project to use for your own purposes. Be as creativeas you wish!
 
-- **Personalized Knowledge Graphs** — Each user can build and manage their own private graph.
+## Find a bug?
 
-- **GraphQL API** — Flexible queries and mutations for frontend and external integrations.
-
-## Technologies
-
-- **React** - Handles the user presentation and experience in the frontend
-- **SpringBoot (Java)** — Implements the backend operations, including server logic, resolvers, ORMs, etc.
-- **GraphQL API** — Serves as a query and mutation handler between frontend and backend
-- **JWT** — Serves as primary authentication handler
-- **SQLite Database** — Manages local data storage, including nodes and relationships
-
-## Setup & Running
-
-**Pre-Requisites**
-
-- Download and install Node.js from the official website - [Node.js](https://nodejs.org/en/download/)
-- Download and install Java 24 from the official website - [Java 24](https://www.oracle.com/java/technologies/downloads/)
-- Download and install the Java Virtual Machine from Oracle - [Java Virtual Machine](https://www.oracle.com/java/technologies/downloads/)
-
-**Setup**
-
-1. **Clone the repository**
-   ```sh
-   git clone https://github.com/{yourUsername}/GraphMind.git
-   cd GraphMind
-   ```
-2. **Install frontend dependencies**
-
-   ```sh
-   cd frontend
-   npm install
-   ```
-
-3. **Build and run the backend**
-
-   ```sh
-   cd ../backend
-   ./gradlew build
-   ./gradlew bootRun
-   ```
-
-4. **Run the frontend**
-
-   ```sh
-   cd ../frontend
-   npm run dev
-   ```
-
-5. **Access the application**
-   - Frontend: [http://localhost:5173](http://localhost:5173)
-   - GraphiQL IDE: [http://localhost:8080/graphiql](http://localhost:8080/graphiql)
-
-## Contributing
-
-Contribution is not only welcome, but encouraged! Here are some ways you can contribute:
-
-- **Feature requests** — You can send feature ideas by opening an issue with the `feature-request` label.
-- **Bug reports** — You can report a bug by opening an issue with the `bug` label.
-- **Pull requests** — You can contribute directly by forking, coding, and submitting PRs!
+If you found an issue or would like to submit an improvement to this project, please submit an issue using the issues tabs above. If you would like to submit a PR with a fix, reference the issue you created!
 
 ## License
 
 This project is licensed under the MIT License.
-
-For further information, feel free to initiate contact:
-
-- **Email** — obwochandrew@gmail.com
-- **GitHub:** [AndrewObwocha/GraphMind](https://github.com/AndrewObwocha/GraphMind)
 
 ---
 
